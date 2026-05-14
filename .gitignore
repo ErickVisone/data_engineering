@@ -1,3 +1,11 @@
+# Exclusions for others
 .venv/
 .env
 .tests/
+/logs/
+
+
+# Exclusions for DBT
+/ecommerce/target/
+/ecommerce/dbt_packages/
+/ecommerce/logs/
