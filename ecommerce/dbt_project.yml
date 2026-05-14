@@ -1,12 +1,12 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'ecommerce'
-version: '1.0.0'
+name: "ecommerce"
+version: "1.0.0"
+config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'ecommerce'
+profile: "ecommerce"
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -18,10 +18,10 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"
+clean-targets: # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
-
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -31,6 +31,34 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   ecommerce:
-    # Config indicated by + and applies to all files under models/example/
-    example:
+    bronze:
+      +materialized: table
+      +schema: bronze
+      +tags: ["bronze", "raw"]
+      +meta:
+        modeling_layer: bronze
+
+    silver:
+      +materialized: table
+      +schema: silver
+      +tags: ["silver", "cleaned"]
+      +meta:
+        modeling_layer: silver
+
+    gold:
       +materialized: view
+      +tags: ["gold", "kpi", "metrics"]
+      +meta:
+        modeling_layer: gold
+      sales:
+        +schema: gold_sales
+      customer_success:
+        +schema: gold_cs
+      pricing:
+        +schema: gold_pricing
+
+# Project Variables
+vars:
+  # Business Rules
+  segmentacao_vip_threshold: 10000 # Minimum revenue for VIP customer
+  segmentacao_top_tier_threshold: 5000 # Minimum revenue for TOP TIER customer

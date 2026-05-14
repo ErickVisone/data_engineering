@@ -1,0 +1,66 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Tables as source, no changes were made"
+    schema: public
+    tables:
+      - name: products
+        description: "All products registered in the system"
+        columns:
+          - name: id_produto
+            description: "Unique_ID"
+          - name: nome_produto
+            description: "Product name"
+          - name: categoria
+            description: "Product category"
+          - name: marca
+            description: "Product brand"
+          - name: preco_atual
+            description: "Current product price"
+          - name: data_criacao
+            description: "Product creation date"
+
+      - name: customers
+        description: "Table with all customers"
+        columns:
+          - name: id_cliente
+            description: "Customer ID"
+          - name: nome_cliente
+            description: "Customer Name"
+          - name: estado
+            description: "Customer state"
+          - name: pais
+            description: "PCustomer country"
+          - name: data_cadastro
+            description: "Customer registration date"
+
+      - name: sales
+        description: "Table contains all sales that were made"
+        columns:
+          - name: id_venda
+            description: "Sales ID"
+          - name: data_venda
+            description: "Sales timestamp"
+          - name: id_cliente
+            description: "Customer ID"
+          - name: id_produto
+            description: "Product ID"
+          - name: canal_venda
+            description: "Sales channel (ecommerce, phisical_store)"
+          - name: quantidade
+            description: "Quuantity sold"
+          - name: preco_unitario
+            description: "Unit price"
+
+      - name: competitor_prices
+        description: "Table with a scrapped price from compatitors"
+        columns:
+          - name: id_produto
+            description: "Product ID"
+          - name: nome_concorrente
+            description: "Competitor Name"
+          - name: preco_concorrente
+            description: "Competitor Price"
+          - name: data_coleta
+            description: "Scrapped date"
